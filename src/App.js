@@ -5,7 +5,7 @@ import About from "./pages/About"
 import Home from "./pages/Home"
 import LoginForm from "./pages/LoginForm"
 import LoginPage from "./pages/LoginPage"
-import Signup from "./pages/signup"
+import Signup from "./pages/signupForm"
 
 function App() {
     return (
