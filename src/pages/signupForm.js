@@ -2,7 +2,6 @@ import { useState } from "react"
 
 export default function Signup() {
     const [info, setInfo] = useState({username: "", password: "", password2: "", email: "", first_name: "", last_name: ""});
-    const [confirmerror, setConfirmerror] = useState("");
     const subminHandle = (event) => {
         event.preventDefault();
     }
@@ -21,6 +20,7 @@ export default function Signup() {
             <div className="form-group">
                 <label htmlFor="password2">Confirm Password:</label>
                 <input type="password" name="password2" id="password2" onChange={(event) => setInfo({...info, password2: event.target.value})} value={info.password2}/>
+                {info.password === info.password2 ? <span></span> : <span>"Password and confirm passowrd does not match."</span>}
             </div>
             <div className="form-group">
                 <label htmlFor="email">Email:</label>
