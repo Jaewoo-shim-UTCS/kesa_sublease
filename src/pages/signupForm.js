@@ -1,12 +1,15 @@
 import { useState } from "react"
+import axios from "axios";
 
 export default function Signup() {
     const [info, setInfo] = useState({username: "", password: "", password2: "", email: "", first_name: "", last_name: ""});
-    const subminHandle = (event) => {
+    const submitHandle = (event) => {
+        axios.post('http://localhost:8000/auth/register/', {username: info.username, password: info.password, password2: info.password2, email: info.email, first_name: info.first_name, last_name: info.last_name}).then(
+            (response) => {console.log(response)});
         event.preventDefault();
     }
     return (
-        <form onSubmit={subminHandle}>
+        <form onSubmit={submitHandle}>
             <div className="form-inner">
             <h2>Sign Up</h2>
             <div className="form-group">
