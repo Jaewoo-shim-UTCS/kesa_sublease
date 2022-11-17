@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import LoginPage from './pages/LoginPage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom"
 import App from './App'

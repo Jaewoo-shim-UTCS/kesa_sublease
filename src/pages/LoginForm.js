@@ -1,13 +1,27 @@
+import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
+import { setAuthToken } from './setAuthToken';
 
 function LoginForm({Login, error}) {
-    const [detail, setDetails] = useState({name: "", email: "", password: ""});
+    const [detail, setDetails] = useState({username: "", password: ""});
 
     const submitHandler = (event) => {
         // prevent refreshing
+        axios.post("http://localhost:8000/auth/login/", detail).then(response => {
+            console.log(response);
+            //get token from response
+            const token = response.data.access;
+
+            //set JWT token to local
+            localStorage.setItem("token",token);
+
+            //set token to axios common header
+            setAuthToken(token);
+        })
+
         event.preventDefault();
-        Login(detail);
+        // Login(detail);
     }   
   return (
     <form onSubmit={submitHandler}>
@@ -15,12 +29,8 @@ function LoginForm({Login, error}) {
             <h2>Login</h2>
             {(error !== "" ? <div className="error">{error}</div> : "")}
             <div className="form-group">
-                <label htmlFor="name">Name:</label>
-                <input type="text" name="name" id="name" onChange={(event) => setDetails({...detail, name: event.target.value})} value={detail.name}/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="email">Email:</label>
-                <input type="email" name="email" id="email" onChange={(event) => setDetails({...detail, email: event.target.value})} value={detail.email}/>
+                <label htmlFor="name">Username:</label>
+                <input type="text" name="username" id="name" onChange={(event) => setDetails({...detail, username: event.target.value})} value={detail.username}/>
             </div>
             <div className="form-group">
                 <label htmlFor="password">Password:</label>

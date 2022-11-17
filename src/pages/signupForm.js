@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios";
+import { Route, Navigate } from "react-router-dom";
 
 export default function Signup() {
     const [info, setInfo] = useState({username: "", password: "", password2: "", email: "", first_name: "", last_name: ""});
@@ -7,7 +8,11 @@ export default function Signup() {
         axios.post('http://localhost:8000/auth/register/', {username: info.username, password: info.password, password2: info.password2, email: info.email, first_name: info.first_name, last_name: info.last_name}).then(
             (response) => {console.log(response)});
         event.preventDefault();
+        
+        //redirect user to loginpage
+        return <Route path="/login" element={ <Navigate replace to="/login"/> }/>
     }
+
     return (
         <form onSubmit={submitHandle}>
             <div className="form-inner">
@@ -35,7 +40,7 @@ export default function Signup() {
             </div>
             <div className="form-group">
                 <label htmlFor="last_name">Last name:</label>
-                <input type="text" name="Lasname" id="Lastname" onChange={(event) => setInfo({...info, last_name: event.target.value})} value={info.last_name}/>
+                <input type="text" name="Lastname" id="Lastname" onChange={(event) => setInfo({...info, last_name: event.target.value})} value={info.last_name}/>
             </div>
             <input type="submit" value="Sign Up"/>
             </div>
